@@ -58,6 +58,8 @@ export default function RemoteControl() {
             Right click
           </Button>
         </div>
+
+        {/* 滑鼠搖桿 */}
         <Nipplejs
           options={nipplejsOptions}
           onMove={nipplejsOnMove}
