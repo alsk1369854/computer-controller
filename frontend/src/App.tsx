@@ -5,7 +5,7 @@ import ThemeSwitch from "./components/ThemeSwitch";
 
 function App() {
   return (
-    <div className="h-screen w-full">
+    <div className="h-screen w-full bg-white dark:bg-slate-900">
       <ThemeSwitch></ThemeSwitch>
       <RemoteControl></RemoteControl>
     </div>
