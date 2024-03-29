@@ -12,6 +12,7 @@
     "@types/react-dom": "^18.2.23",
     "antd": "^5.15.4",
     "cra-template-typescript": "1.2.0",
+    "nipplejs": "^0.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
