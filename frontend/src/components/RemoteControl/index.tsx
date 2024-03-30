@@ -3,6 +3,8 @@ import Nipplejs, { JoystickManagerOnEventHandler } from "../Nipplejs";
 import { JoystickManagerOptions } from "nipplejs";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 import { Input, Button, Space } from "antd";
+import { keyboardController } from "../../apis/KeyboardController";
+import { mouseController } from "../../apis/MouseController";
 
 export default function RemoteControl() {
   const size: SizeType = "large";
@@ -23,19 +25,19 @@ export default function RemoteControl() {
     console.log("start", event, data);
   };
 
-  const backspaceButtonOnClick = () => {};
-
   return (
     <div className="flex-col p-8">
       {/* // 鍵盤控制 */}
       <div className="p-4 mb-4 border-solid border-2 rounded-lg ">
-        <div className="font-bold text-xl mb-4 dark:text-white">鍵盤控制</div>
+        <div className="font-bold text-xl mb-4 dark:text-white">
+          Keyboard Control
+        </div>
         <Button
           className="w-full mb-4"
           danger
           type="primary"
           size={size}
-          onClick={backspaceButtonOnClick}
+          onClick={keyboardController.backspaceClick}
         >
           Backspace
         </Button>
@@ -43,7 +45,7 @@ export default function RemoteControl() {
           className="w-full mb-4"
           type="primary"
           size={size}
-          onClick={backspaceButtonOnClick}
+          onClick={keyboardController.enterClick}
         >
           Enter
         </Button>
@@ -58,12 +60,24 @@ export default function RemoteControl() {
 
       {/* 滑鼠控制 */}
       <div className="p-4 border-solid border-2 rounded-lg">
-        <div className="font-bold text-xl mb-4 dark:text-white">滑鼠控制</div>
+        <div className="font-bold text-xl mb-4 dark:text-white">
+          Mouse Control
+        </div>
         <div className="flex">
-          <Button className="flex-auto mr-4" type="primary" size={size}>
+          <Button
+            className="flex-auto mr-4"
+            type="primary"
+            size={size}
+            onClick={mouseController.leftClick}
+          >
             Left click
           </Button>
-          <Button className="flex-auto ml-4" type="primary" size={size}>
+          <Button
+            className="flex-auto ml-4"
+            type="primary"
+            size={size}
+            onClick={mouseController.rightClick}
+          >
             Right click
           </Button>
         </div>

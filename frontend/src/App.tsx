@@ -21,7 +21,7 @@ function App() {
   };
   return (
     <ConfigProvider theme={antdTheme}>
-      <div className="h-screen w-full bg-white dark:bg-slate-900">
+      <div className="h-screen w-full bg-white dark:bg-neutral-900">
         <ThemeSwitch onChange={onThemeSwitch}></ThemeSwitch>
         <RemoteControl></RemoteControl>
       </div>
