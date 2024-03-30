@@ -6,6 +6,8 @@ import nipplejs, {
   JoystickOutputData,
 } from "nipplejs";
 
+export * from "nipplejs";
+
 /**
  * 遙感事件回調類型
  */
@@ -14,7 +16,7 @@ export type JoystickManagerOnEventHandler = (
   data: JoystickOutputData
 ) => void;
 
-export interface INipplejsProps {
+export interface IJoystickProps {
   options: Omit<JoystickManagerOptions, "zone">;
   onStart?: JoystickManagerOnEventHandler;
   onMove?: JoystickManagerOnEventHandler;
@@ -31,7 +33,7 @@ const DEFAULT_OPTIONS: JoystickManagerOptions = {
   color: "white",
 };
 
-const Nipplejs: React.FC<INipplejsProps> = (props) => {
+const Joystick: React.FC<IJoystickProps> = (props) => {
   /**
    * 遙感 HTML 元素
    */
@@ -67,4 +69,4 @@ const Nipplejs: React.FC<INipplejsProps> = (props) => {
 
   return <div ref={ref}></div>;
 };
-export default Nipplejs;
+export default Joystick;

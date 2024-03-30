@@ -1,8 +1,14 @@
 class KeyboardController {
-  public backspaceClick() {}
+  public backspaceClick(): void {
+    console.log("backspace click");
+  }
 
-  public enterClick() {}
+  public enterClick(): void {
+    console.log("enter click");
+  }
 
-  public keyboardInput() {}
+  public keyboardInput(value: string): void {
+    console.log("keyboard input:", value);
+  }
 }
 export const keyboardController = new KeyboardController();

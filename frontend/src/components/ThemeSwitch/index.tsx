@@ -22,7 +22,7 @@ const ThemeSwitch: React.FC<IThemeSwitchProps> = (props) => {
   return (
     <div className="pt-8 px-4 flex justify-end">
       <div className="font-bold text-xl mr-2 dark:text-white">
-        Theme switch:{" "}
+        Theme switch:
       </div>
       <Switch
         className="mt-1"

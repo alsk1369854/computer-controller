@@ -1,15 +1,19 @@
 import React from "react";
-import Nipplejs, { JoystickManagerOnEventHandler } from "../Nipplejs";
-import { JoystickManagerOptions } from "nipplejs";
+import {
+  JoystickManagerOnEventHandler,
+  JoystickManagerOptions,
+  Position,
+} from "../Joystick";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 import { Input, Button, Space } from "antd";
 import { keyboardController } from "../../apis/KeyboardController";
 import { mouseController } from "../../apis/MouseController";
+import Joystick from "../Joystick";
 
 export default function RemoteControl() {
   const size: SizeType = "large";
 
-  const nipplejsOptions: JoystickManagerOptions = {
+  const joysitickOptions: JoystickManagerOptions = {
     mode: "static",
     position: {
       left: "50%",
@@ -18,11 +22,12 @@ export default function RemoteControl() {
     size: 200,
     color: "#B6AFAE",
   };
-  const nipplejsOnMove: JoystickManagerOnEventHandler = (event, data) => {
-    console.log("move", event, data);
-  };
-  const nipplejsOnStart: JoystickManagerOnEventHandler = (event, data) => {
-    console.log("start", event, data);
+
+  let joysitickStartPosition: Position | null = null;
+
+  const joysitickOnMove: JoystickManagerOnEventHandler = (event, data) => {
+    console.log("start opsition", joysitickStartPosition);
+    console.log("move", data.position);
   };
 
   return (
@@ -83,11 +88,12 @@ export default function RemoteControl() {
         </div>
 
         {/* 滑鼠搖桿 */}
-        <Nipplejs
-          options={nipplejsOptions}
-          onMove={nipplejsOnMove}
-          onStart={nipplejsOnStart}
-        ></Nipplejs>
+        <Joystick
+          options={joysitickOptions}
+          onMove={joysitickOnMove}
+          onStart={(_, data) => (joysitickStartPosition = data.position)}
+          onEnd={() => (joysitickStartPosition = null)}
+        ></Joystick>
       </div>
     </div>
   );
