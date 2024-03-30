@@ -10,6 +10,31 @@ import { keyboardController } from "../../apis/KeyboardController";
 import { mouseController } from "../../apis/MouseController";
 import Joystick from "../Joystick";
 
+export class TaskManager {
+  private tasks: Function[] = [];
+  private isRuning: boolean = false;
+
+  private async run() {
+    if (this.isRuning) return;
+    this.isRuning = true;
+    let task = this.tasks.shift();
+    while (task) {
+      await task();
+      task = this.tasks.shift();
+    }
+    this.isRuning = false;
+  }
+
+  public put(task: Function) {
+    this.tasks.push(task);
+    this.run();
+  }
+
+  public clean() {
+    this.tasks = [];
+  }
+}
+
 export default function RemoteControl() {
   const size: SizeType = "large";
 
@@ -22,12 +47,30 @@ export default function RemoteControl() {
     size: 200,
     color: "#B6AFAE",
   };
+  const joysitickTaskManager = new TaskManager();
 
   let joysitickStartPosition: Position | null = null;
+  let joysitickMovePosition: Position | null = null;
+  let joysitickTaskInterval: NodeJS.Timer | null = null;
 
-  const joysitickOnMove: JoystickManagerOnEventHandler = (event, data) => {
-    console.log("start opsition", joysitickStartPosition);
-    console.log("move", data.position);
+  const joysitickOnStart: JoystickManagerOnEventHandler = (event, data) => {
+    joysitickStartPosition = data.position;
+    joysitickTaskInterval = setInterval(() => {
+      if (!joysitickMovePosition) return;
+      const xOffset = data.position.x - joysitickMovePosition.x;
+      const yOffset = data.position.y - joysitickMovePosition.y;
+      joysitickTaskManager.put(() =>
+        mouseController.addOffset(xOffset, yOffset)
+      );
+    }, 15);
+  };
+
+  const joysitickOnEnd: JoystickManagerOnEventHandler = (event, data) => {
+    joysitickTaskManager.clean();
+    joysitickStartPosition = null;
+    joysitickMovePosition = null;
+    window.clearInterval(joysitickTaskInterval!);
+    joysitickTaskInterval = null;
   };
 
   return (
@@ -90,9 +133,9 @@ export default function RemoteControl() {
         {/* 滑鼠搖桿 */}
         <Joystick
           options={joysitickOptions}
-          onMove={joysitickOnMove}
-          onStart={(_, data) => (joysitickStartPosition = data.position)}
-          onEnd={() => (joysitickStartPosition = null)}
+          onMove={(_, data) => (joysitickMovePosition = data.position)}
+          onStart={joysitickOnStart}
+          onEnd={joysitickOnEnd}
         ></Joystick>
       </div>
     </div>

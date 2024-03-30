@@ -7,8 +7,14 @@ class MouseController {
   public leftClick(): void {
     console.log("left click");
   }
-  public moveAmount(xAmount: number, yAmount: number): void {
-    console.log("mover amount:", xAmount, yAmount);
+
+  /**
+   * 添加偏移
+   * @param x x 軸偏移量
+   * @param y y 軸偏移量
+   */
+  public addOffset(x: number, y: number): void {
+    console.log("add offset :", x, y);
   }
 }
 export const mouseController = new MouseController();
