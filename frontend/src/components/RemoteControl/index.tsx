@@ -52,23 +52,43 @@ export default function RemoteControl() {
   let joysitickMovePosition: Position | null = null;
   let joysitickTaskInterval: NodeJS.Timer | null = null;
 
+  /**
+   * 搖桿開始事件
+   * @param event 搖桿事件
+   * @param data 搖桿數據
+   */
   const joysitickOnStart: JoystickManagerOnEventHandler = (event, data) => {
+    // 開啟定時器自動，間斷式的發送 api
     joysitickTaskInterval = setInterval(() => {
       if (!joysitickMovePosition) return;
       const xOffset = data.position.x - joysitickMovePosition.x;
       const yOffset = data.position.y - joysitickMovePosition.y;
+      // 將 api 推入 執行列中
       joysitickTaskManager.put(() =>
         mouseController.addOffset(xOffset, yOffset)
       );
     }, 15);
   };
 
+  /**
+   * 搖桿移動事件
+   * @param event 搖桿事件
+   * @param data 搖桿資料
+   */
   const joysitickOnMove: JoystickManagerOnEventHandler = (event, data) => {
+    // 更新搖桿偏移量
     joysitickMovePosition = data.position;
+    // 清空舊滑鼠添加偏移任務
     joysitickTaskManager.clean();
   };
 
+  /**
+   * 搖桿
+   * @param event 搖桿事件
+   * @param data 搖桿資料
+   */
   const joysitickOnEnd: JoystickManagerOnEventHandler = (event, data) => {
+    // 清空搖桿位移計算
     joysitickTaskManager.clean();
     joysitickMovePosition = null;
     window.clearInterval(joysitickTaskInterval!);
