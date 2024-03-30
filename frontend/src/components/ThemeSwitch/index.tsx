@@ -3,12 +3,20 @@ import { Switch } from "antd";
 import { MoonOutlined, SunOutlined } from "@ant-design/icons";
 import { SwitchChangeEventHandler } from "antd/es/switch";
 
-export default function ThemeSwitch() {
+export interface IThemeSwitchProps {
+  onChange?(isLightTheme: boolean): void;
+}
+
+const ThemeSwitch: React.FC<IThemeSwitchProps> = (props) => {
   const themeSwitchOnChange: SwitchChangeEventHandler = (checked, event) => {
     if (checked) {
       document.body.classList.remove("dark");
     } else {
       document.body.classList.add("dark");
+    }
+    // 呼叫外部回調
+    if (props.onChange) {
+      props.onChange(checked);
     }
   };
   return (
@@ -22,4 +30,5 @@ export default function ThemeSwitch() {
       />
     </div>
   );
-}
+};
+export default ThemeSwitch;

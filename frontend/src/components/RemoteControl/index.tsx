@@ -11,7 +11,7 @@ export default function RemoteControl() {
     mode: "static",
     position: {
       left: "50%",
-      top: "70%",
+      top: "75%",
     },
     size: 200,
     color: "#B6AFAE",
@@ -28,7 +28,7 @@ export default function RemoteControl() {
   return (
     <div className="flex-col p-8">
       {/* // 鍵盤控制 */}
-      <div className="p-4 mb-12 border-solid border-2 rounded-md ">
+      <div className="p-4 mb-4 border-solid border-2 rounded-lg ">
         <div className="font-bold text-xl mb-4 dark:text-white">鍵盤控制</div>
         <Button
           className="w-full mb-4"
@@ -39,22 +39,31 @@ export default function RemoteControl() {
         >
           Backspace
         </Button>
-        <Space.Compact className="w-full " size={size}>
-          <Input placeholder="鍵盤輸入" size={size} />
+        <Button
+          className="w-full mb-4"
+          type="primary"
+          size={size}
+          onClick={backspaceButtonOnClick}
+        >
+          Enter
+        </Button>
+
+        <Space.Compact className="w-full" size={size}>
+          <Input placeholder="keyboard input" size={size} />
           <Button type="primary" size={size}>
-            Enter
+            Send
           </Button>
         </Space.Compact>
       </div>
 
       {/* 滑鼠控制 */}
-      <div className="p-4 border-solid border-2 rounded-md">
+      <div className="p-4 border-solid border-2 rounded-lg">
         <div className="font-bold text-xl mb-4 dark:text-white">滑鼠控制</div>
         <div className="flex">
-          <Button className="flex-auto mx-4" type="primary" size={size}>
+          <Button className="flex-auto mr-4" type="primary" size={size}>
             Left click
           </Button>
-          <Button className="flex-auto mx-4" type="primary" size={size}>
+          <Button className="flex-auto ml-4" type="primary" size={size}>
             Right click
           </Button>
         </div>
