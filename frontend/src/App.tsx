@@ -1,31 +1,21 @@
 import React, { useState } from "react";
 import "./App.css";
 import RemoteControl from "./components/RemoteControl";
+import ThemeProvider, { ThemeType } from "./providers/ThemeProvider";
 import ThemeSwitch from "./components/ThemeSwitch";
-import { ConfigProvider, ThemeConfig, theme } from "antd";
 
 function App() {
-  const [antdTheme, setAntdTheme] = useState<ThemeConfig>({
-    algorithm: theme.defaultAlgorithm,
-  });
-  const onThemeSwitch = (isLightTheme: boolean) => {
-    if (isLightTheme) {
-      setAntdTheme({
-        algorithm: theme.defaultAlgorithm,
-      });
-    } else {
-      setAntdTheme({
-        algorithm: theme.darkAlgorithm,
-      });
-    }
-  };
+  const [themeType, setThemeType] = useState<ThemeType>("light");
+
   return (
-    <ConfigProvider theme={antdTheme}>
-      <div className="h-screen w-full bg-white dark:bg-neutral-900">
-        <ThemeSwitch onChange={onThemeSwitch}></ThemeSwitch>
-        <RemoteControl></RemoteControl>
-      </div>
-    </ConfigProvider>
+    <ThemeProvider theme={themeType}>
+      <ThemeSwitch
+        onChange={(checked) =>
+          checked ? setThemeType("light") : setThemeType("dark")
+        }
+      ></ThemeSwitch>
+      <RemoteControl></RemoteControl>
+    </ThemeProvider>
   );
 }
 

@@ -49,12 +49,10 @@ export default function RemoteControl() {
   };
   const joysitickTaskManager = new TaskManager();
 
-  let joysitickStartPosition: Position | null = null;
   let joysitickMovePosition: Position | null = null;
   let joysitickTaskInterval: NodeJS.Timer | null = null;
 
   const joysitickOnStart: JoystickManagerOnEventHandler = (event, data) => {
-    joysitickStartPosition = data.position;
     joysitickTaskInterval = setInterval(() => {
       if (!joysitickMovePosition) return;
       const xOffset = data.position.x - joysitickMovePosition.x;
@@ -65,9 +63,13 @@ export default function RemoteControl() {
     }, 15);
   };
 
+  const joysitickOnMove: JoystickManagerOnEventHandler = (event, data) => {
+    joysitickMovePosition = data.position;
+    joysitickTaskManager.clean();
+  };
+
   const joysitickOnEnd: JoystickManagerOnEventHandler = (event, data) => {
     joysitickTaskManager.clean();
-    joysitickStartPosition = null;
     joysitickMovePosition = null;
     window.clearInterval(joysitickTaskInterval!);
     joysitickTaskInterval = null;
@@ -133,7 +135,7 @@ export default function RemoteControl() {
         {/* 滑鼠搖桿 */}
         <Joystick
           options={joysitickOptions}
-          onMove={(_, data) => (joysitickMovePosition = data.position)}
+          onMove={joysitickOnMove}
           onStart={joysitickOnStart}
           onEnd={joysitickOnEnd}
         ></Joystick>
