@@ -12,10 +12,5 @@ func init() {
 }
 
 func main() {
-	// robotgo.MilliSleep(1000)
-	// robotgo.TypeStr("Hello World")
-	// // robotgo.KeyTap("enter")
-	// robotgo.KeyTap(robotgo.Enter)
-
 	server.NewServer().Run("8080")
 }

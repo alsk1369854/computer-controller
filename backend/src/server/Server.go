@@ -3,6 +3,7 @@ package server
 import (
 	"computer-controller-backend/src/controllers"
 
+	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,6 +19,7 @@ func NewServer() *Server {
 
 func (s *Server) init() {
 	s.ginEngine = gin.Default()
+	s.ginEngine.Use(static.Serve("/", static.LocalFile("../frontend/build", true)))
 
 	mouse := controllers.NewMouseController()
 	mouse.Binding(s.ginEngine)

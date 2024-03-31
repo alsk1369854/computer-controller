@@ -59,11 +59,11 @@ const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
     // 開啟定時器自動，間斷式的發送 api
     joysitickTaskInterval = setInterval(() => {
       if (!joysitickMovePosition) return;
-      const xOffset = data.position.x - joysitickMovePosition.x;
-      const yOffset = data.position.y - joysitickMovePosition.y;
+      const xOffset = joysitickMovePosition.x - data.position.x;
+      const yOffset = joysitickMovePosition.y - data.position.y;
       // 將 api 推入 執行列中
       joysitickTaskManager.put(() =>
-        mouseController.addOffset(xOffset, yOffset)
+        mouseController.moveRelative(xOffset, yOffset)
       );
     }, 500 / speedValue);
   };
@@ -115,7 +115,7 @@ const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
               className="flex-auto mr-4"
               type="primary"
               size={size}
-              onClick={mouseController.leftClick}
+              onClick={mouseController.clickLeft}
             >
               Left click
             </Button>
@@ -123,7 +123,7 @@ const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
               className="flex-auto ml-4"
               type="primary"
               size={size}
-              onClick={mouseController.rightClick}
+              onClick={mouseController.clickRight}
             >
               Right click
             </Button>

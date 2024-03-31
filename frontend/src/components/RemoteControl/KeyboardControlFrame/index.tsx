@@ -1,5 +1,5 @@
 import { Button, Space, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { keyboardController } from "../../../apis/KeyboardController";
 import { SizeType } from "antd/es/config-provider/SizeContext";
 
@@ -10,6 +10,7 @@ interface IKeyboardControlFrameProps {
 
 const KeyboardControlFrame: React.FC<IKeyboardControlFrameProps> = (props) => {
   const { size } = props;
+  const [keyboardInputValue, setKeyboardInputValue] = useState<string>("");
 
   return (
     <div className={props.className}>
@@ -22,7 +23,7 @@ const KeyboardControlFrame: React.FC<IKeyboardControlFrameProps> = (props) => {
           danger
           type="primary"
           size={size}
-          onClick={keyboardController.backspaceClick}
+          onClick={keyboardController.clickBackspace}
         >
           Backspace
         </Button>
@@ -30,14 +31,27 @@ const KeyboardControlFrame: React.FC<IKeyboardControlFrameProps> = (props) => {
           className="w-full mb-4"
           type="primary"
           size={size}
-          onClick={keyboardController.enterClick}
+          onClick={keyboardController.clickEnter}
         >
           Enter
         </Button>
 
         <Space.Compact className="w-full" size={size}>
-          <Input placeholder="keyboard input" size={size} />
-          <Button type="primary" size={size}>
+          <Input
+            placeholder="keyboard input"
+            value={keyboardInputValue}
+            onChange={(value) => setKeyboardInputValue(value.target.value)}
+            size={size}
+          />
+          <Button
+            type="primary"
+            onClick={() => {
+              if (keyboardInputValue === "") return;
+              keyboardController.input(keyboardInputValue);
+              setKeyboardInputValue("");
+            }}
+            size={size}
+          >
             Send
           </Button>
         </Space.Compact>

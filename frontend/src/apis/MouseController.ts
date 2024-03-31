@@ -1,11 +1,16 @@
+import { Position } from "nipplejs";
+
 class MouseController {
-  // public moveTo(x: number, y: number) {}
-  // public getCurrentPosition() {}
-  public rightClick(): void {
-    console.log("right click");
+  private static readonly CONTROLLER_NAME: string = "mouse";
+
+  public clickRight(): Promise<Response> {
+    const url = `/${MouseController.CONTROLLER_NAME}/click-right`;
+    return fetch(url);
   }
-  public leftClick(): void {
-    console.log("left click");
+
+  public clickLeft(): Promise<Response> {
+    const url = `/${MouseController.CONTROLLER_NAME}/click-left`;
+    return fetch(url);
   }
 
   /**
@@ -13,8 +18,19 @@ class MouseController {
    * @param x x 軸偏移量
    * @param y y 軸偏移量
    */
-  public addOffset(x: number, y: number): void {
-    console.log("add offset :", x, y);
+  public moveRelative(x: number, y: number): Promise<Response> {
+    const url = `${MouseController.CONTROLLER_NAME}/move-relative`;
+    const body: Position = {
+      x: Math.round(x),
+      y: Math.round(y),
+    };
+    if (body.x === 0 && body.y === 0) {
+      return new Promise((resolve) => resolve(new Response()));
+    }
+    return fetch(url, {
+      body: JSON.stringify(body),
+      method: "POST",
+    });
   }
 }
 export const mouseController = new MouseController();
