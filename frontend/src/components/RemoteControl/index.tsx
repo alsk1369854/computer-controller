@@ -41,9 +41,13 @@ export default function RemoteControl() {
   const joysitickOptions: JoystickManagerOptions = {
     mode: "static",
     position: {
+      top: "20%",
       left: "50%",
-      top: "75%",
     },
+    // position: {
+    //   left: "50%",
+    //   top: "75%",
+    // },
     size: 200,
     color: "#B6AFAE",
   };
@@ -150,15 +154,16 @@ export default function RemoteControl() {
           >
             Right click
           </Button>
+          {/* 滑鼠搖桿 */}
+          <div className="">
+            <Joystick
+              options={joysitickOptions}
+              onMove={joysitickOnMove}
+              onStart={joysitickOnStart}
+              onEnd={joysitickOnEnd}
+            ></Joystick>
+          </div>
         </div>
-
-        {/* 滑鼠搖桿 */}
-        <Joystick
-          options={joysitickOptions}
-          onMove={joysitickOnMove}
-          onStart={joysitickOnStart}
-          onEnd={joysitickOnEnd}
-        ></Joystick>
       </div>
     </div>
   );

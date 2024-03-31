@@ -15,6 +15,11 @@ export const ThemeProvider: React.FC<PropsWithChildren<IThemeProviderProps>> = (
   });
 
   useEffect(() => {
+    // 配合 antd 樣式變換的速度
+    document.body.style.transition = "all 0.2s";
+  }, []);
+
+  useEffect(() => {
     switch (props.theme) {
       case "light":
         setAntdTheme({

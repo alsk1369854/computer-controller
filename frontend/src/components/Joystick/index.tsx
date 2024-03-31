@@ -67,6 +67,6 @@ const Joystick: React.FC<IJoystickProps> = (props) => {
     };
   }, [props]);
 
-  return <div ref={ref}></div>;
+  return <div className="absolute inset-x-0 w-full h-full" ref={ref}></div>;
 };
 export default Joystick;

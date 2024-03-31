@@ -10,6 +10,7 @@ function App() {
   return (
     <ThemeProvider theme={themeType}>
       <ThemeSwitch
+        checked={themeType === "light"}
         onChange={(checked) =>
           checked ? setThemeType("light") : setThemeType("dark")
         }
