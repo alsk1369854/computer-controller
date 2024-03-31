@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/computer-mouse-controller/static/css/main.f6fdbbcd.css",
+    "main.js": "/computer-mouse-controller/static/js/main.8a3d34d0.js",
+    "static/js/453.b7b5033f.chunk.js": "/computer-mouse-controller/static/js/453.b7b5033f.chunk.js",
+    "index.html": "/computer-mouse-controller/index.html",
+    "main.f6fdbbcd.css.map": "/computer-mouse-controller/static/css/main.f6fdbbcd.css.map",
+    "main.8a3d34d0.js.map": "/computer-mouse-controller/static/js/main.8a3d34d0.js.map",
+    "453.b7b5033f.chunk.js.map": "/computer-mouse-controller/static/js/453.b7b5033f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f6fdbbcd.css",
+    "static/js/main.8a3d34d0.js"
+  ]
+}
