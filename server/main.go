@@ -14,6 +14,11 @@ func init() {
 
 func main() {
 	utils.GetNetUtils().PrintIPInfo()
+
+	// path for go run
 	clientPath := `./client/build`
+	// path for build .exe
+	// clientPath := utils.GetPathUtils().GetAppPath() + "/client/build"
+
 	server.NewServer(clientPath).Run(8080)
 }
