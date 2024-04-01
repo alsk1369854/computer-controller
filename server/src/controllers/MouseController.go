@@ -39,8 +39,7 @@ func (mc *MouseController) clickLeft(ctx *gin.Context) {
 }
 
 func (mc *MouseController) doubleClickLeft(ctx *gin.Context) {
-	robotgo.Click(robotgo.Left)
-	robotgo.Click(robotgo.Left)
+	robotgo.Click(robotgo.Left, true)
 	ctx.IndentedJSON(http.StatusOK, &gin.H{})
 }
 

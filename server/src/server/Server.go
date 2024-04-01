@@ -2,27 +2,25 @@ package server
 
 import (
 	"computer-controller-backend/src/controllers"
-	"computer-controller-backend/src/utils"
+	"fmt"
 
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
 
-var pathUtils = utils.GetPathUtils()
-
 type Server struct {
 	ginEngine *gin.Engine
 }
 
-func NewServer() *Server {
+func NewServer(clientPath string) *Server {
 	server := &Server{}
-	server.init()
+	server.init(clientPath)
 	return server
 }
 
-func (s *Server) init() {
+func (s *Server) init(clientPath string) {
 	s.ginEngine = gin.Default()
-	s.ginEngine.Use(static.Serve("/", static.LocalFile(pathUtils.GetAppPath()+"/client/build", true)))
+	s.ginEngine.Use(static.Serve("/", static.LocalFile(clientPath, true)))
 
 	mouse := controllers.NewMouseController()
 	mouse.Binding(s.ginEngine)
@@ -31,6 +29,7 @@ func (s *Server) init() {
 	keyboard.Binding(s.ginEngine)
 }
 
-func (s *Server) Run(port string) {
-	s.ginEngine.Run(":" + port)
+func (s *Server) Run(port int) {
+	addr := fmt.Sprintf(":%d", port)
+	s.ginEngine.Run(addr)
 }

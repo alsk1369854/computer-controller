@@ -2,6 +2,7 @@ package main
 
 import (
 	"computer-controller-backend/src/server"
+	"computer-controller-backend/src/utils"
 
 	"github.com/go-vgo/robotgo"
 )
@@ -12,5 +13,7 @@ func init() {
 }
 
 func main() {
-	server.NewServer().Run("8080")
+	utils.GetNetUtils().PrintIPInfo()
+	clientPath := `./client/build`
+	server.NewServer(clientPath).Run(8080)
 }
