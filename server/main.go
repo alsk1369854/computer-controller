@@ -3,6 +3,7 @@ package main
 import (
 	"computer-controller-backend/src/server"
 	"computer-controller-backend/src/utils"
+	"fmt"
 
 	"github.com/go-vgo/robotgo"
 )
@@ -13,12 +14,26 @@ func init() {
 }
 
 func main() {
-	utils.GetNetUtils().PrintIPInfo()
+	// 伺服器端口
+	serverPort := 8080
 
+	// 打印主機IP
+	netUtils := utils.GetNetUtils()
+	fmt.Println("Host URL:")
+	for _, info := range netUtils.GetIPInfo() {
+		ip := info.IPNet.IP.String()
+		if netUtils.IsIpv4IP(ip) {
+			hostUrl := fmt.Sprintf("\thttp://%s:%d", ip, serverPort)
+			fmt.Println(hostUrl)
+		}
+	}
+	fmt.Println()
+
+	// 前端檔案路徑
 	// path for go run
 	clientPath := `./client/build`
 	// path for build .exe
 	// clientPath := utils.GetPathUtils().GetAppPath() + "/client/build"
 
-	server.NewServer(clientPath).Run(8080)
+	server.NewServer(clientPath).Run(serverPort)
 }
