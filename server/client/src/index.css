@@ -9,6 +9,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;  
+
+  /* 禁止 double-tap */
+  touch-action: manipulation;
+}
+
+/* 禁止區塊反白選取 */
+* {
+  user-select: none;
+  -webkit-user-select: none; /* Chrome Safari */        
+  -moz-user-select: none;    /* Firefox */
 }
 
 code {
