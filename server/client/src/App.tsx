@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import RemoteControl from "./components/RemoteControl";
+import RemoteControl from "./pages/RemoteControl";
 import ThemeProvider from "./theme/ThemeProvider";
 import ThemeSwitch from "./components/ThemeSwitch";
 import { useThemeType } from "./hooks/useThemeType";
+import TouchBoardDeBug from "./components/TouchBoard/debug";
 
 function App() {
   const [themeType, setThemeType] = useThemeType();
@@ -16,10 +17,11 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={themeType}>
-      <ThemeSwitch theme={themeType} setTheme={setThemeType}></ThemeSwitch>
-      <RemoteControl></RemoteControl>
-    </ThemeProvider>
+    <TouchBoardDeBug></TouchBoardDeBug>
+    // <ThemeProvider theme={themeType}>
+    //   <ThemeSwitch theme={themeType} setTheme={setThemeType}></ThemeSwitch>
+    //   <RemoteControl></RemoteControl>
+    // </ThemeProvider>
   );
 }
 

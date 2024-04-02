@@ -3,10 +3,11 @@ import { Switch } from "antd";
 import { MoonOutlined, SunOutlined } from "@ant-design/icons";
 import { SwitchChangeEventHandler } from "antd/es/switch";
 import { ThemeType } from "../../theme/ThemeProvider";
+import { SetThemeTypeAction } from "../../hooks/useThemeType";
 
 export interface IThemeSwitchProps {
   theme: ThemeType;
-  setTheme: React.Dispatch<React.SetStateAction<ThemeType>>;
+  setTheme: SetThemeTypeAction;
 }
 
 const ThemeSwitch: React.FC<IThemeSwitchProps> = (props) => {

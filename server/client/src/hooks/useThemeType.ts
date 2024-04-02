@@ -6,10 +6,10 @@ const isOSThemeOnDark = (): boolean => {
   return matchMedia("(prefers-color-scheme: dark)").matches;
 };
 
-export type ThemeTypeState = [
-  ThemeType,
-  React.Dispatch<React.SetStateAction<ThemeType>>
-];
+export type SetThemeTypeAction = React.Dispatch<
+  React.SetStateAction<ThemeType>
+>;
+type ThemeTypeState = [ThemeType, SetThemeTypeAction];
 
 export const useThemeType = (initThemeType?: ThemeType): ThemeTypeState => {
   if (!initThemeType) {

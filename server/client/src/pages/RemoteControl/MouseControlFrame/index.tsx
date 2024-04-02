@@ -2,8 +2,11 @@ import { Slider, Button } from "antd";
 import { JoystickManagerOptions, Position } from "nipplejs";
 import React, { useState } from "react";
 import { mouseController } from "../../../apis/MouseController";
-import Joystick, { JoystickManagerOnEventHandler } from "../../Joystick";
+import Joystick, {
+  JoystickManagerOnEventHandler,
+} from "../../../components/Joystick";
 import { SizeType } from "antd/es/config-provider/SizeContext";
+import TouchBoard from "../../../components/TouchBoard";
 
 export class TaskManager {
   private tasks: Function[] = [];
@@ -165,12 +168,13 @@ const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
 
           {/* 滑鼠搖桿 */}
           <div className="h-48 w-full relative border-2 rounded-lg border-dotted">
-            <Joystick
+            <TouchBoard></TouchBoard>
+            {/* <Joystick
               options={joysitickOptions}
               onMove={joysitickOnMove}
               onStart={joysitickOnStart}
               onEnd={joysitickOnEnd}
-            ></Joystick>
+            ></Joystick> */}
           </div>
         </div>
       </div>
