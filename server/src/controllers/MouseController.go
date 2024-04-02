@@ -17,20 +17,21 @@ func NewMouseController() *MouseController {
 
 func (mc *MouseController) Binding(ginEngine *gin.Engine) {
 	routerGroup := ginEngine.Group("mouse")
-	routerGroup.GET("/slide-up", mc.slideUp)
-	routerGroup.GET("/slide-down", mc.slideDown)
+	routerGroup.POST("/scroll-relative", mc.scrollRelative)
 	routerGroup.GET("/click-left", mc.clickLeft)
 	routerGroup.GET("/double-click-left", mc.doubleClickLeft)
 	routerGroup.GET("/click-right", mc.clickRight)
 	routerGroup.POST("/move-relative", mc.moveRelative)
 }
 
-func (mc *MouseController) slideUp(ctx *gin.Context) {
-	robotgo.ScrollDir(40, robotgo.Up)
-}
-
-func (mc *MouseController) slideDown(ctx *gin.Context) {
-	robotgo.ScrollDir(40, robotgo.Down)
+func (mc *MouseController) scrollRelative(ctx *gin.Context) {
+	var position models.Position
+	if err := ctx.ShouldBindJSON(&position); err != nil {
+		ctx.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	robotgo.Scroll(position.X, position.Y)
+	ctx.IndentedJSON(http.StatusOK, &gin.H{})
 }
 
 func (mc *MouseController) clickLeft(ctx *gin.Context) {
@@ -54,6 +55,6 @@ func (mc *MouseController) moveRelative(ctx *gin.Context) {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 		return
 	}
-	robotgo.MoveSmoothRelative(position.X, position.Y, 0.5, 0.5)
+	robotgo.MoveRelative(position.X, position.Y)
 	ctx.IndentedJSON(http.StatusOK, &gin.H{})
 }

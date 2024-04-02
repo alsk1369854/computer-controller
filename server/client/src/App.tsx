@@ -4,7 +4,6 @@ import RemoteControl from "./pages/RemoteControl";
 import ThemeProvider from "./theme/ThemeProvider";
 import ThemeSwitch from "./components/ThemeSwitch";
 import { useThemeType } from "./hooks/useThemeType";
-import TouchBoardDeBug from "./components/TouchBoard/debug";
 
 function App() {
   const [themeType, setThemeType] = useThemeType();
@@ -14,14 +13,17 @@ function App() {
     document.addEventListener("gesturestart", function (event) {
       event.preventDefault();
     });
+    document.addEventListener("scroll", function (event) {
+      event.preventDefault();
+    });
   }, []);
 
   return (
-    <TouchBoardDeBug></TouchBoardDeBug>
-    // <ThemeProvider theme={themeType}>
-    //   <ThemeSwitch theme={themeType} setTheme={setThemeType}></ThemeSwitch>
-    //   <RemoteControl></RemoteControl>
-    // </ThemeProvider>
+    // <TouchBoardDebug></TouchBoardDebug>
+    <ThemeProvider theme={themeType}>
+      <ThemeSwitch theme={themeType} setTheme={setThemeType}></ThemeSwitch>
+      <RemoteControl></RemoteControl>
+    </ThemeProvider>
   );
 }
 
