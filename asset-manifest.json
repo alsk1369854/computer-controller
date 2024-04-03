@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/computer-mouse-controller/static/css/main.01f60cc6.css",
-    "main.js": "/computer-mouse-controller/static/js/main.c2f6e019.js",
-    "static/js/453.8d13598e.chunk.js": "/computer-mouse-controller/static/js/453.8d13598e.chunk.js",
-    "index.html": "/computer-mouse-controller/index.html",
-    "main.01f60cc6.css.map": "/computer-mouse-controller/static/css/main.01f60cc6.css.map",
-    "main.c2f6e019.js.map": "/computer-mouse-controller/static/js/main.c2f6e019.js.map",
-    "453.8d13598e.chunk.js.map": "/computer-mouse-controller/static/js/453.8d13598e.chunk.js.map"
+    "main.css": "/computer-controller/static/css/main.dc98b594.css",
+    "main.js": "/computer-controller/static/js/main.0267a4cb.js",
+    "static/js/453.fcf8e106.chunk.js": "/computer-controller/static/js/453.fcf8e106.chunk.js",
+    "index.html": "/computer-controller/index.html",
+    "main.dc98b594.css.map": "/computer-controller/static/css/main.dc98b594.css.map",
+    "main.0267a4cb.js.map": "/computer-controller/static/js/main.0267a4cb.js.map",
+    "453.fcf8e106.chunk.js.map": "/computer-controller/static/js/453.fcf8e106.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.01f60cc6.css",
-    "static/js/main.c2f6e019.js"
+    "static/css/main.dc98b594.css",
+    "static/js/main.0267a4cb.js"
   ]
 }
