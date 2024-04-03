@@ -1,4 +1,4 @@
-module computer-controller-backend
+module computer-controller-server
 
 go 1.22.1
 

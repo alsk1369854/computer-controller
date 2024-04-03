@@ -16,7 +16,6 @@ function App() {
   }, []);
 
   return (
-    // <TouchBoardDebug></TouchBoardDebug>
     <ThemeProvider theme={themeType}>
       <ThemeSwitch theme={themeType} setTheme={setThemeType}></ThemeSwitch>
       <RemoteControl></RemoteControl>
