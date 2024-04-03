@@ -13,9 +13,6 @@ function App() {
     document.addEventListener("gesturestart", function (event) {
       event.preventDefault();
     });
-    document.addEventListener("scroll", function (event) {
-      event.preventDefault();
-    });
   }, []);
 
   return (

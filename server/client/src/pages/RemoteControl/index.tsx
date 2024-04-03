@@ -8,7 +8,7 @@ export default function RemoteControl() {
 
   return (
     <div className="flex-col p-8">
-      <KeyboardControlFrame className="mb-4" size={size}></KeyboardControlFrame>
+      <KeyboardControlFrame className="mb-8" size={size}></KeyboardControlFrame>
       <MouseControlFrame></MouseControlFrame>
     </div>
   );
