@@ -4,6 +4,7 @@ import { mouseController } from "../../../apis/MouseController";
 import TouchBoard from "../../../components/TouchBoard";
 import { InfoOutlined } from "@ant-design/icons";
 import { touchBoardUtils } from "../../../components/TouchBoard/utils/TouchBoardUtils";
+import { TouchBoardEventHandler } from "../../../components/TouchBoard/types/TouchBoardEventHandler";
 
 interface IMouseControlFrameProps {
   className?: string;
@@ -12,25 +13,23 @@ interface IMouseControlFrameProps {
 const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
   const [speedValue, setSpeedValue] = useState(5);
 
-  const onTouchBoardSwipeMove = touchBoardUtils.getPreviousDataHandler(
-    (prevDataList, [curr]) => {
+  const onTouchBoardSwipeMove: TouchBoardEventHandler =
+    touchBoardUtils.getPreviousDataHandler((prevDataList, [curr]) => {
       if (!prevDataList) return;
       const [prev] = prevDataList;
       const offsetX = (curr.position.x - prev.position.x) * speedValue;
       const offsetY = (curr.position.y - prev.position.y) * speedValue;
       mouseController.moveRelative(offsetX, offsetY);
-    }
-  );
+    });
 
-  const onTouchBoardTwoFingerSwipeMove = touchBoardUtils.getPreviousDataHandler(
-    (prevDataList, [curr]) => {
+  const onTouchBoardTwoFingerSwipeMove: TouchBoardEventHandler =
+    touchBoardUtils.getPreviousDataHandler((prevDataList, [curr]) => {
       if (!prevDataList) return;
       const [prev] = prevDataList;
       const offsetX = (curr.position.x - prev.position.x) * speedValue;
       const offsetY = (curr.position.y - prev.position.y) * speedValue;
       mouseController.scrollRelative(offsetX, offsetY);
-    }
-  );
+    });
 
   return (
     <div className={props.className}>
@@ -75,12 +74,8 @@ const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
               onTap={() => mouseController.clickLeft()}
               onDoubleTap={() => mouseController.doubleClickLeft()}
               onTwoFingerTap={() => mouseController.clickRight()}
-              onSwipeMove={(dataList) => {
-                onTouchBoardSwipeMove(dataList);
-              }}
-              onTwoFingerSwipeMove={(dataList) => {
-                onTouchBoardTwoFingerSwipeMove(dataList);
-              }}
+              onSwipeMove={onTouchBoardSwipeMove}
+              onTwoFingerSwipeMove={onTouchBoardTwoFingerSwipeMove}
             ></TouchBoard>
           </div>
         </div>
