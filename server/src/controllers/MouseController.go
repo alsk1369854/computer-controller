@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"computer-controller-backend/src/models"
+	"computer-controller-server/src/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

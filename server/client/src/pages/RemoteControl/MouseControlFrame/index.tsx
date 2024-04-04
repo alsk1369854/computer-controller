@@ -2,9 +2,8 @@ import { Button, Popconfirm, Slider } from "antd";
 import React, { useState } from "react";
 import { mouseController } from "../../../apis/MouseController";
 import TouchBoard from "../../../components/TouchBoard";
-import { TouchBoardEventHandler } from "../../../components/TouchBoard/types/TouchBoardEventHandler";
-import { ITouchBoardOutputData } from "../../../components/TouchBoard/interfaces/ITouchBoardOutputData";
-import { DownloadOutlined, InfoOutlined } from "@ant-design/icons";
+import { InfoOutlined } from "@ant-design/icons";
+import { touchBoardUtils } from "../../../components/TouchBoard/utils/TouchBoardUtils";
 
 interface IMouseControlFrameProps {
   className?: string;
@@ -12,34 +11,22 @@ interface IMouseControlFrameProps {
 
 const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
   const [speedValue, setSpeedValue] = useState(5);
-  const setTouchBoardSwipeData = useState<ITouchBoardOutputData | null>(
-    null
-  )[1];
-  const setTouchBoardTwoFingerSwipeData =
-    useState<ITouchBoardOutputData | null>(null)[1];
 
-  const onTouchBoardSwipeMove: TouchBoardEventHandler = ([data]) => {
-    setTouchBoardSwipeData((prev) => {
-      if (!prev) return data;
-      const offsetX = (data.position.x - prev.position.x) * speedValue;
-      const offsetY = (data.position.y - prev.position.y) * speedValue;
+  const touchBoardSwipeMovePrevDataHandler =
+    touchBoardUtils.getPreviousDataHandler((prev, curr) => {
+      if (!prev) return;
+      const offsetX = (curr.position.x - prev.position.x) * speedValue;
+      const offsetY = (curr.position.y - prev.position.y) * speedValue;
       mouseController.moveRelative(offsetX, offsetY);
-      return data;
     });
-  };
 
-  const onTouchBoardTwoFingerSwipeMove: TouchBoardEventHandler = ([
-    data1,
-    data2,
-  ]) => {
-    setTouchBoardTwoFingerSwipeData((prev) => {
-      if (!prev) return data1;
-      const offsetX = (data1.position.x - prev.position.x) * speedValue;
-      const offsetY = (data1.position.y - prev.position.y) * speedValue;
+  const touchBoardTwoFingerSwipeMovePrevDataHandler =
+    touchBoardUtils.getPreviousDataHandler((prev, curr) => {
+      if (!prev) return;
+      const offsetX = (curr.position.x - prev.position.x) * speedValue;
+      const offsetY = (curr.position.y - prev.position.y) * speedValue;
       mouseController.scrollRelative(offsetX, offsetY);
-      return data1;
     });
-  };
 
   return (
     <div className={props.className}>
@@ -90,17 +77,11 @@ const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
               onTwoFingerTap={() => {
                 mouseController.clickRight();
               }}
-              onSwipeMove={(dataList) => {
-                onTouchBoardSwipeMove(dataList);
+              onSwipeMove={([data]) => {
+                touchBoardSwipeMovePrevDataHandler(data);
               }}
-              onSwipeEnd={() => {
-                setTouchBoardSwipeData(() => null);
-              }}
-              onTwoFingerSwipeMove={(dataList) => {
-                onTouchBoardTwoFingerSwipeMove(dataList);
-              }}
-              onTwoFingerSwipeEnd={() => {
-                setTouchBoardTwoFingerSwipeData(() => null);
+              onTwoFingerSwipeMove={([data]) => {
+                touchBoardTwoFingerSwipeMovePrevDataHandler(data);
               }}
             ></TouchBoard>
           </div>

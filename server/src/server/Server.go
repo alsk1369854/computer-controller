@@ -1,7 +1,7 @@
 package server
 
 import (
-	"computer-controller-backend/src/controllers"
+	"computer-controller-server/src/controllers"
 	"fmt"
 
 	"github.com/gin-gonic/contrib/static"
@@ -19,7 +19,7 @@ func NewServer(clientPath string) *Server {
 }
 
 func (s *Server) init(clientPath string) {
-	s.ginEngine = gin.Default()
+	s.ginEngine = gin.New()
 	s.ginEngine.Use(static.Serve("/", static.LocalFile(clientPath, true)))
 
 	mouse := controllers.NewMouseController()
