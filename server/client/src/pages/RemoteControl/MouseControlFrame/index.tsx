@@ -12,21 +12,25 @@ interface IMouseControlFrameProps {
 const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
   const [speedValue, setSpeedValue] = useState(5);
 
-  const touchBoardSwipeMovePrevDataHandler =
-    touchBoardUtils.getPreviousDataHandler((prev, curr) => {
-      if (!prev) return;
+  const onTouchBoardSwipeMove = touchBoardUtils.getPreviousDataHandler(
+    (prevDataList, [curr]) => {
+      if (!prevDataList) return;
+      const [prev] = prevDataList;
       const offsetX = (curr.position.x - prev.position.x) * speedValue;
       const offsetY = (curr.position.y - prev.position.y) * speedValue;
       mouseController.moveRelative(offsetX, offsetY);
-    });
+    }
+  );
 
-  const touchBoardTwoFingerSwipeMovePrevDataHandler =
-    touchBoardUtils.getPreviousDataHandler((prev, curr) => {
-      if (!prev) return;
+  const onTouchBoardTwoFingerSwipeMove = touchBoardUtils.getPreviousDataHandler(
+    (prevDataList, [curr]) => {
+      if (!prevDataList) return;
+      const [prev] = prevDataList;
       const offsetX = (curr.position.x - prev.position.x) * speedValue;
       const offsetY = (curr.position.y - prev.position.y) * speedValue;
       mouseController.scrollRelative(offsetX, offsetY);
-    });
+    }
+  );
 
   return (
     <div className={props.className}>
@@ -68,20 +72,14 @@ const MouseControlFrame: React.FC<IMouseControlFrameProps> = (props) => {
           {/* 滑鼠搖桿 */}
           <div className="h-64 w-full relative border-2 rounded-lg border-dotted bg-neutral-300 dark:bg-neutral-700">
             <TouchBoard
-              onTap={() => {
-                mouseController.clickLeft();
+              onTap={() => mouseController.clickLeft()}
+              onDoubleTap={() => mouseController.doubleClickLeft()}
+              onTwoFingerTap={() => mouseController.clickRight()}
+              onSwipeMove={(dataList) => {
+                onTouchBoardSwipeMove(dataList);
               }}
-              onDoubleTap={() => {
-                mouseController.doubleClickLeft();
-              }}
-              onTwoFingerTap={() => {
-                mouseController.clickRight();
-              }}
-              onSwipeMove={([data]) => {
-                touchBoardSwipeMovePrevDataHandler(data);
-              }}
-              onTwoFingerSwipeMove={([data]) => {
-                touchBoardTwoFingerSwipeMovePrevDataHandler(data);
+              onTwoFingerSwipeMove={(dataList) => {
+                onTouchBoardTwoFingerSwipeMove(dataList);
               }}
             ></TouchBoard>
           </div>
