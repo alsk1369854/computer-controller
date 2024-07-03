@@ -19,6 +19,7 @@ func NewServer(clientPath string) *Server {
 }
 
 func (s *Server) init(clientPath string) {
+	gin.SetMode(gin.ReleaseMode)
 	s.ginEngine = gin.New()
 	s.ginEngine.Use(static.Serve("/", static.LocalFile(clientPath, true)))
 

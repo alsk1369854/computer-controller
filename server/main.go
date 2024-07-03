@@ -4,8 +4,10 @@ import (
 	"computer-controller-server/src/server"
 	"computer-controller-server/src/utils"
 	"fmt"
+	"os"
 
 	"github.com/go-vgo/robotgo"
+	"github.com/mdp/qrterminal/v3"
 )
 
 func init() {
@@ -21,9 +23,9 @@ func main() {
 
 	// 前端檔案路徑
 	// path for go run
-	clientPath := `./client/build`
+	// clientPath := `./client/build`
 	// path for build .exe
-	// clientPath := utils.GetPathUtils().GetAppPath() + "/client/build"
+	clientPath := utils.GetPathUtils().GetAppPath() + "/client/build"
 
 	server.NewServer(clientPath).Run(serverPort)
 }
@@ -37,6 +39,7 @@ func printHostUrl(serverPort int) {
 		if netUtils.IsIpv4IP(ip) {
 			hostUrl := fmt.Sprintf("\thttp://%s:%d", ip, serverPort)
 			fmt.Println(hostUrl)
+			qrterminal.Generate(hostUrl, qrterminal.L, os.Stdout)
 		}
 	}
 	fmt.Println()
